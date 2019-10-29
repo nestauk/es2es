@@ -3,13 +3,13 @@ from requests.exceptions import HTTPError
 import mock
 import pytest
 
-from _es2es import unpack_if_safe
-from _es2es import ElasticsearchError
-from _es2es import request
-from _es2es import transfer_index
-from _es2es import extract_data
-from _es2es import format_bulk_docs
-from _es2es import make_url
+from es2es._es2es import unpack_if_safe
+from es2es._es2es import ElasticsearchError
+from es2es._es2es import request
+from es2es._es2es import transfer_index
+from es2es._es2es import extract_data
+from es2es._es2es import format_bulk_docs
+from es2es._es2es import make_url
 
 
 def test_make_url():
@@ -38,8 +38,8 @@ def test_unpack_if_safe_es_error_and_no_es_error():
     assert unpack_if_safe(r) == {"data": "something"}
 
 
-@mock.patch('_es2es.unpack_if_safe', side_effect=lambda x: x)
-@mock.patch('_es2es.requests')
+@mock.patch('es2es._es2es.unpack_if_safe', side_effect=lambda x: x)
+@mock.patch('es2es._es2es.requests')
 def test_request(mocked_requests, mocked_unpack):
     kwargs = dict(another_other_kwarg=None,
                   another_final_kwarg=23)
@@ -65,7 +65,7 @@ def test_request(mocked_requests, mocked_unpack):
     f.assert_has_calls(expected_calls)
 
 
-@mock.patch('_es2es.request')
+@mock.patch('es2es._es2es.request')
 def test_transfer_index(mocked_request):
     transfer_index('origin_endpoint', 'origin_index',
                    'dest_endpoint', 'dest_index',
@@ -82,7 +82,7 @@ def test_transfer_index_bad_index():
                        dest_kwargs={})
 
 
-@mock.patch('_es2es.request')
+@mock.patch('es2es._es2es.request')
 def test_extract_data(mocked_request):
     first_doc = {'_scroll_id': 100, 'hits': {'hits': [1]*23}}
     last_doc = {'_scroll_id': 100, 'hits': {'hits': [1]*12}}

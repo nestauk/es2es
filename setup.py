@@ -1,7 +1,7 @@
 from setuptools import setup
 
 common_kwargs = dict(
-    version='0.1.3',
+    version='0.1.0',
     license='MIT',
     install_requires=["requests==2.22.0",
                       "mock==2.0.0",

@@ -1,0 +1,4 @@
+setuptools==41.4.0
+requests==2.22.0
+mock==2.0.0
+pytest==3.9.2
